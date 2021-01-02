@@ -22,12 +22,16 @@ struct ContentView: View {
     
     var convertedValue: Double {
         
+        let convertedValue = inputNumber.replacingOccurrences(of: ",", with: ".")
+        let inputValue = Double(convertedValue) ?? 0
+        var basicValue: Double
+        
         switch(conversionType) {
         
+        // Temperature
         case 0:
             
-            let inputValue = Double(inputNumber) ?? 0
-            var basicValue: Double
+            // 0 == Celsius, 1 == Fahrenheit, 2 == Kelvin
             
             if (unitInput == 0) {
                 basicValue = inputValue
@@ -44,18 +48,18 @@ struct ContentView: View {
             }
             
             return basicValue + 273.15
-            
+         
+        // Length
         case 1:
             
-            let inputValue = Double(inputNumber) ?? 0
-            var basicValue: Double
+            // 0 = meters, 1 = kilometers, 2 == feet, 3 == yards, 4 == miles
             
             if (unitInput == 0) {
                 basicValue = inputValue
             } else if (unitInput == 1) {
                 basicValue = inputValue * 1000
             } else if (unitInput == 2) {
-                basicValue = inputValue * 0.0305
+                basicValue = inputValue * 0.3048
             } else if (unitInput == 3) {
                 basicValue = inputValue * 0.9144
             } else {
@@ -73,11 +77,11 @@ struct ContentView: View {
             }
             
             return basicValue * 0.000621371192
-            
+           
+        // Time
         case 2:
             
-            let inputValue = Double(inputNumber) ?? 0
-            var basicValue: Double
+            // 0 == seconds, 1 == minutes, 2 == hours, 3 == days
             
             if (unitInput == 0) {
                 basicValue = inputValue
@@ -98,11 +102,11 @@ struct ContentView: View {
             }
             
             return basicValue / 86400
-            
+        
+        // Volume
         default:
             
-            let inputValue = Double(inputNumber) ?? 0
-            var basicValue: Double
+            // 0 == mililiters, 1 == liters, 2 == cups (250 ml), 3 == pints, 4 == gallons
             
             if (unitInput == 0) {
                 basicValue = inputValue
@@ -110,7 +114,7 @@ struct ContentView: View {
                 basicValue = inputValue * 1000
             } else if (unitInput == 2) {
                 basicValue = inputValue * 250
-            } else if (unitOutput == 3) {
+            } else if (unitInput == 3) {
                 basicValue = inputValue * 473.176473
             } else {
                 basicValue = inputValue * 3785.41178
